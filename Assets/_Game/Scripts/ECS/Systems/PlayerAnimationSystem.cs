@@ -1,19 +1,17 @@
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.Di;
-using SimpleInputNamespace;
 using UnityEngine;
 
 namespace Game
 {
-    public sealed class PlayerInputSystem : IEcsRunSystem, IEcsInitSystem
+    public sealed class PlayerAnimationSystem : IEcsRunSystem, IEcsInitSystem
     {
         private EcsFilter _filter;
+
+        private EcsPool<AnimatorComponenet> _animatorPool;
         private EcsPool<DirectionComponenet> _directionPool;
 
-        private Joystick _joystick;
-        private Vector3 _inputDirection;
-
-        private readonly EcsCustomInject<SceneData> _sceneData;
+        private int _isMovingHash = Animator.StringToHash("IsMoving");
+        private bool _isMoving;
 
         public void Init(IEcsSystems systems)
         {
@@ -21,26 +19,25 @@ namespace Game
 
             _filter = world.Filter<PlayerTag>()
                 .Inc<DirectionComponenet>()
+                .Inc<AnimatorComponenet>()
                 .End();
 
+            _animatorPool = world.GetPool<AnimatorComponenet>();
             _directionPool = world.GetPool<DirectionComponenet>();
-
-            _joystick = _sceneData.Value.Joystick;
         }
 
         public void Run(IEcsSystems systems)
         {
             if (_filter.GetEntitiesCount() <= 0)
                 return;
-
+                
             int playerID = _filter.GetRawEntities()[0];
 
-            _inputDirection.x = _joystick.Value.x;
-            _inputDirection.z = _joystick.Value.y;
-
-
+            ref AnimatorComponenet animator = ref _animatorPool.Get(playerID);
             ref DirectionComponenet direction = ref _directionPool.Get(playerID);
-            direction.value = _inputDirection;
+
+            _isMoving = direction.value.magnitude > 0f;
+            animator.value.SetBool(_isMovingHash, _isMoving);
         }
     }
 }

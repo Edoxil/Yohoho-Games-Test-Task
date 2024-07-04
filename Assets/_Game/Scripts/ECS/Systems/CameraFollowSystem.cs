@@ -33,6 +33,12 @@ namespace Game
 
         public void Run(IEcsSystems systems)
         {
+            if (_cameraFilter.GetEntitiesCount() <= 0)
+                return;
+
+            if (_targetFilter.GetEntitiesCount() <= 0)
+                return;
+
             int cameraID = _cameraFilter.GetRawEntities()[0];
             int targetID = _targetFilter.GetRawEntities()[0];
 

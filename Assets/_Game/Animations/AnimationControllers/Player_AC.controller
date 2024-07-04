@@ -34,7 +34,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TopLayer
+  m_Name: HandsLayer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 6009658155794826723}
@@ -128,7 +128,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: TopLayer
+    m_Name: HandsLayer
     m_StateMachine: {fileID: -4388888141233707802}
     m_Mask: {fileID: 31900000, guid: d2ac0914feb7a6c4d86e0a2b2d02fe4b, type: 2}
     m_Motions: []

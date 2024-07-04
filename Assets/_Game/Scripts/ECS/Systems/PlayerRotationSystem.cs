@@ -30,23 +30,24 @@ namespace Game
 
         public void Run(IEcsSystems systems)
         {
-            foreach (var entity in _filter)
-            {
-                ref DirectionComponenet direction = ref _directionPool.Get(entity);
+            if (_filter.GetEntitiesCount() <= 0)
+                return;
 
-                if (direction.value == Vector3.zero)
-                    continue;
+            int playerID = _filter.GetRawEntities()[0];
+            ref DirectionComponenet direction = ref _directionPool.Get(playerID);
 
-                ref TransformComponenet transform = ref _transformPool.Get(entity);
-                ref RotationSpeedComponent rotSpeed = ref _rotationSpeedPool.Get(entity);
+            if (direction.value == Vector3.zero)
+                return;
 
-                _lookDirection = Quaternion.LookRotation(direction.value, Vector3.up);
-                _lookDirection.x = 0f;
-                _lookDirection.z = 0f;
+            ref TransformComponenet transform = ref _transformPool.Get(playerID);
+            ref RotationSpeedComponent rotSpeed = ref _rotationSpeedPool.Get(playerID);
 
-                transform.value.rotation = Quaternion.Lerp(transform.value.rotation, _lookDirection,
-                       rotSpeed.value * Time.deltaTime);
-            }
+            _lookDirection = Quaternion.LookRotation(direction.value, Vector3.up);
+            _lookDirection.x = 0f;
+            _lookDirection.z = 0f;
+
+            transform.value.rotation = Quaternion.Lerp(transform.value.rotation, _lookDirection,
+                   rotSpeed.value * Time.deltaTime);
         }
     }
 }

@@ -30,16 +30,18 @@ namespace Game
 
         public void Run(IEcsSystems systems)
         {
-            foreach (var entity in _filter)
-            {
-                ref SpeedComponent speed = ref _speedPool.Get(entity);
-                ref DirectionComponenet direction = ref _directionPool.Get(entity);
-                ref CharacterControllerComponent characterController = ref _characterControllerPool.Get(entity);
+            if (_filter.GetEntitiesCount() <= 0)
+                return;
 
-                _motion = speed.value * Time.deltaTime * direction.value;
+            int playerID = _filter.GetRawEntities()[0];
 
-                characterController.value.Move(_motion);
-            }
+            ref SpeedComponent speed = ref _speedPool.Get(playerID);
+            ref DirectionComponenet direction = ref _directionPool.Get(playerID);
+            ref CharacterControllerComponent characterController = ref _characterControllerPool.Get(playerID);
+
+            _motion = speed.value * Time.deltaTime * direction.value;
+
+            characterController.value.Move(_motion);
         }
     }
 }
