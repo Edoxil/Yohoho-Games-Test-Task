@@ -12,6 +12,7 @@ namespace Game
         private EcsPool<CharacterControllerComponent> _characterControllerPool;
 
         private Vector3 _motion;
+        private Vector3 _gravity = new Vector3(0f, -9.81f, 0f);
 
         public void Init(IEcsSystems systems)
         {
@@ -41,7 +42,7 @@ namespace Game
 
             _motion = speed.value * Time.deltaTime * direction.value;
 
-            characterController.value.Move(_motion);
+            characterController.value.Move(_motion + _gravity);
         }
     }
 }

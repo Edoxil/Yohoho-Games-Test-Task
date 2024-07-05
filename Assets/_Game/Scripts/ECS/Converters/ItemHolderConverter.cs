@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class SpawnPointConverter : ComponentConverter<SpawnPointComponent>
+    public class ItemHolderConverter : ComponentConverter<ItemHolderComponent>
     {
 
     }

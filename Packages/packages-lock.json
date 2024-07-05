@@ -30,12 +30,33 @@
       "dependencies": {},
       "hash": "99347c110c316a54c1cf2f0b268950f02612662d"
     },
+    "com.leopotam.ecslite.extendedsystems": {
+      "version": "https://github.com/Leopotam/ecslite-extendedsystems.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6ca6bdbb364ca43e572e524df8a8b2b2106ae994"
+    },
     "com.leopotam.ecslite.unityeditor": {
       "version": "https://github.com/Leopotam/ecslite-unityeditor.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
       "hash": "6f308a6e1ce58f53ae21defa9bb54b80d03f1135"
+    },
+    "com.nenuacho.ecslite.interval-systems": {
+      "version": "https://github.com/nenuacho/ecslite-interval-systems.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "108fd330cc5da2a569a5fda3825ef791576b4350"
+    },
+    "com.supremestranger.leoecs-lite-physics": {
+      "version": "https://github.com/supremestranger/leoecs-lite-physics.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4e7a935370c9455ec5d9eb9bed2e8580c4735615"
     },
     "com.unity.addressables": {
       "version": "1.21.21",

@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace Game
 {
-    public sealed class ItemTransactionSolvingSystem : IEcsRunSystem, IEcsInitSystem
+    public sealed class ItemTransactionHandleSystem : IEcsRunSystem, IEcsInitSystem
     {
         private EcsFilter _filter;
 
         private EcsPool<TransformComponenet> _transformPool;
         private EcsPool<StorageComponent> _storagePool;
         private EcsPool<SizeComponent> _sizePool;
-        private EcsPool<ItemComponent> _itemPool;
         private EcsPool<ItemTransactionComponent> _transactionPool;
 
         private EcsWorld _world;
@@ -26,7 +25,6 @@ namespace Game
             _transformPool = _world.GetPool<TransformComponenet>();
             _storagePool = _world.GetPool<StorageComponent>();
             _sizePool = _world.GetPool<SizeComponent>();
-            _itemPool = _world.GetPool<ItemComponent>();
             _transactionPool = _world.GetPool<ItemTransactionComponent>();
         }
 
@@ -36,35 +34,37 @@ namespace Game
             {
                 ref ItemTransactionComponent transaction = ref _transactionPool.Get(entity);
 
+                int fromStorageID = -1;
+                int toStorageID = -1;
+
+                if (transaction.fromStorage.Unpack(_world, out fromStorageID) == false)
+                    continue;
+
+                if (transaction.toStorage.Unpack(_world, out toStorageID) == false)
+                    continue;
+                
+                ref StorageComponent fromStorage = ref _storagePool.Get(fromStorageID);
+                ref StorageComponent toStorage = ref _storagePool.Get(toStorageID);
+
+                Item item = fromStorage.GetItem();
+
                 int itemID = -1;
-                int storageID = -1;
 
-                if (transaction.item.Unpack(_world, out itemID) == false)
-                    continue;
-
-                if (transaction.storage.Unpack(_world, out storageID) == false)
-                    continue;
-
-                ref ItemComponent item = ref _itemPool.Get(itemID);
-                ref StorageComponent storage = ref _storagePool.Get(storageID);
-
-                if (storage.CanAddItem(item) == false)
+                if (item.PackedEntity.Unpack(_world, out itemID) == false)
                     continue;
 
                 ref SizeComponent size = ref _sizePool.Get(itemID);
                 ref TransformComponenet itemTransform = ref _transformPool.Get(itemID);
 
-                ref TransformComponenet storageTransform = ref _transformPool.Get(storageID);
+                Vector3 itemLocalPos = toStorage.CalculateNewItemLocalPos(size.value);
+                itemTransform.value.parent = toStorage.ItemsContainer;
 
-                Vector3 itemLocalPos = storage.CalculateNewItemPos(size.value);
-                itemTransform.value.parent = storageTransform.value;
-
-                storage.Add(item);
+                toStorage.Add(item);
 
                 Transform cashedItemTransform = itemTransform.value;
 
-                var tween = cashedItemTransform.DOLocalJump(itemLocalPos, 1f, 1, 0.35f);
-                var tween2 = cashedItemTransform.DOLocalRotate(Vector3.zero, 0.35f)
+                Tween moveTween = cashedItemTransform.DOLocalJump(itemLocalPos, 1f, 1, 0.35f);
+                Tween rotateTween = cashedItemTransform.DOLocalRotate(Vector3.zero, 0.35f)
                     .OnComplete(() => cashedItemTransform.DOShakeScale(0.2f, 0.25f, 1));
 
                 _transactionPool.Del(entity);

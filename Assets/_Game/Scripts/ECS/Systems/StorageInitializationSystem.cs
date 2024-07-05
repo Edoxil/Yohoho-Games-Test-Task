@@ -2,7 +2,7 @@ using Leopotam.EcsLite;
 
 namespace Game
 {
-    public sealed class StorageInitializationSystem : IEcsRunSystem,IEcsInitSystem
+    public sealed class StorageInitializationSystem : IEcsRunSystem, IEcsInitSystem
     {
         private EcsFilter _filter;
         private EcsPool<StorageComponent> _storagePool;

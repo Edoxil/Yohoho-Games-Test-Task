@@ -118,8 +118,8 @@ GameObject:
   - component: {fileID: 741998185689892690}
   - component: {fileID: 4074056583864177768}
   - component: {fileID: 6840148434926987034}
-  - component: {fileID: 4403856700174271497}
   - component: {fileID: 4139327294678533309}
+  - component: {fileID: 1179734026005200775}
   m_Layer: 0
   m_Name: ItemGenerator
   m_TagString: Untagged
@@ -160,7 +160,6 @@ MonoBehaviour:
   - {fileID: 741998185689892690}
   - {fileID: 4074056583864177768}
   - {fileID: 6840148434926987034}
-  - {fileID: 4403856700174271497}
   - {fileID: 4139327294678533309}
   _destroyAfterConversion: 0
 --- !u!114 &741998185689892690
@@ -204,21 +203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _component:
+    _itemsContainer: {fileID: 291490024199941906}
     _capacity: 4
---- !u!114 &4403856700174271497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414784159140371494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecb67f9674ce734cba2f54812e09f42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _component:
-    point: {fileID: 291490024199941906}
 --- !u!114 &4139327294678533309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +219,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _component:
     value: {fileID: 3684720689402447558}
+--- !u!135 &1179734026005200775
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414784159140371494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1669491324266286551
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 291490024199941906}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: ItemsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

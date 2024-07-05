@@ -13,7 +13,6 @@ namespace Game
         private EcsPool<ItemGeneratorComponenet> _itemGeneratorPool;
         private EcsPool<StorageComponent> _storagePool;
         private EcsPool<TimerComponenet> _timerPool;
-        private EcsPool<SpawnPointComponent> _spawnPointPool;
         private EcsPool<ItemComponent> _itemPool;
         private EcsPool<SizeComponent> _sizePool;
         private EcsPool<TransformComponenet> _transformPool;
@@ -25,7 +24,6 @@ namespace Game
             _generatorFilter = _world.Filter<ItemGeneratorComponenet>()
                 .Inc<StorageComponent>()
                 .Inc<TimerComponenet>()
-                .Inc<SpawnPointComponent>()
                 .End();
 
             _itemFilter = _world.Filter<ItemComponent>()
@@ -36,7 +34,6 @@ namespace Game
             _itemGeneratorPool = _world.GetPool<ItemGeneratorComponenet>();
             _storagePool = _world.GetPool<StorageComponent>();
             _timerPool = _world.GetPool<TimerComponenet>();
-            _spawnPointPool = _world.GetPool<SpawnPointComponent>();
             _itemPool = _world.GetPool<ItemComponent>();
             _sizePool = _world.GetPool<SizeComponent>();
             _transformPool = _world.GetPool<TransformComponenet>();
@@ -62,14 +59,12 @@ namespace Game
                 {
                     timer.AddTime(Time.deltaTime);
                 }
-
             }
         }
 
         private void SpawnItem(int entity, ref StorageComponent storage)
         {
             ref ItemGeneratorComponenet generator = ref _itemGeneratorPool.Get(entity);
-            ref SpawnPointComponent spawnPoint = ref _spawnPointPool.Get(entity);
 
             ItemConverter spawnedItem = Object.Instantiate(generator.prefab);
             EcsConverter.ConvertObject(spawnedItem.gameObject, _world);
@@ -78,15 +73,15 @@ namespace Game
 
             ref SizeComponent size = ref _sizePool.Get(itemEntity);
             ref TransformComponenet itemTransform = ref _transformPool.Get(itemEntity);
-            ref TransformComponenet storageTransfrom = ref _transformPool.Get(entity);
 
-            itemTransform.value.parent = storageTransfrom.value;
-
-            Vector3 spawnPos = spawnPoint.point.position + (0.5f * size.value.y * Vector3.up) + storage.CalculateNewItemPos(size.value);
-            itemTransform.value.position = spawnPos;
+            Vector3 spawnPos = storage.CalculateNewItemLocalPos(size.value);
+            itemTransform.value.parent = storage.ItemsContainer;
+            itemTransform.value.localPosition = spawnPos;
+            itemTransform.value.localEulerAngles = Vector3.zero;
 
             ref ItemComponent item = ref _itemPool.Get(itemEntity);
-            storage.Add(item);
+
+            storage.Add(new Item(item.type, _world.PackEntity(itemEntity)));
         }
     }
 }

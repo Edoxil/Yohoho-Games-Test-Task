@@ -1,4 +1,5 @@
 using AB_Utility.FromSceneToEntityConverter;
+using LeoEcsPhysics;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TriInspector;
@@ -13,22 +14,27 @@ namespace Game
         private IEcsSystems _systems;
         private IEcsSystems _lateSystems;
 
-
         private void Start()
         {
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
+            Application.targetFrameRate = 60;
 
+            _world = new EcsWorld();
+
+            EcsPhysicsEvents.ecsWorld = _world;
+
+            _systems = new EcsSystems(_world);
             _systems.Add(new PlayerInputSystem())
                 .Add(new StorageInitializationSystem())
                 .Add(new ItemGenerationSystem())
+                .Add(new PlayerStorageSystem())
                 .Add(new PlayerMovingSystem())
                 .Add(new PlayerRotationSystem())
                 .Add(new PlayerAnimationSystem())
-                .Add(new ItemTransactionSolvingSystem())
+                .Add(new ItemTransactionHandleSystem())
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                .DelHerePhysics()
                 .ConvertScene()
                 .Inject(_sceneData)
                 .Init();
