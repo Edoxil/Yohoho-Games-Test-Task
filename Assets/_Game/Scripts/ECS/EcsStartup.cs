@@ -41,6 +41,8 @@ namespace Game
 
             _lateSystems = new EcsSystems(_world);
             _lateSystems.Add(new CameraFollowSystem())
+                .Add(new FreezRotationSystem())
+                .Add(new CapacityDisplaySystem())
                 .Init();
         }
 

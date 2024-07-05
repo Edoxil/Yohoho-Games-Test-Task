@@ -15,6 +15,8 @@ namespace Game
         public bool HasItems => Initialized && _stack.Count > 0;
         public bool IsFull => Initialized && _stack.Count == _capacity;
         public Transform ItemsContainer => _itemsContainer;
+        public int Capacity => _capacity;
+        public int ItemsCount => Initialized ? _stack.Count : 0;
 
         public void Init()
         {
@@ -52,9 +54,9 @@ namespace Game
             return true;
         }
 
-        public Vector3 CalculateNewItemLocalPos(Vector3 size)
+        public Vector3 CalculateNewItemLocalPos(Vector3 itemSize)
         {
-            return (0.5f * size.y * Vector3.up) + (_stack.Count * size.y * Vector3.up);
+            return (0.5f * itemSize.y * Vector3.up) + (_stack.Count * itemSize.y * Vector3.up);
         }
     }
 }
