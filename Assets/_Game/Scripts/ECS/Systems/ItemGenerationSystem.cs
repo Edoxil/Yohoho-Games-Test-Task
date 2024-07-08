@@ -1,4 +1,5 @@
 using AB_Utility.FromSceneToEntityConverter;
+using DG.Tweening;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -78,6 +79,10 @@ namespace Game
             itemTransform.value.parent = storage.ItemsContainer;
             itemTransform.value.localPosition = spawnPos;
             itemTransform.value.localEulerAngles = Vector3.zero;
+
+            Vector3 itemScale = itemTransform.value.localScale;
+            itemTransform.value.localScale = Vector3.zero;
+            Tween tween = itemTransform.value.DOScale(itemScale, 0.25f);
 
             ref ItemComponent item = ref _itemPool.Get(itemEntity);
 

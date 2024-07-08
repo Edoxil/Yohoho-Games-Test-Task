@@ -17,12 +17,11 @@ namespace Game
         private EcsPool<TransformComponenet> _transformPool;
         private EcsPool<StorageComponent> _storagePool;
         private EcsPool<ItemTransactionComponent> _transactionPool;
-        private EcsPool<ItemHolderComponent> _holderPool;
 
-        private float _itemPickUpInterval = 0.25f;
+        private float _itemPickUpInterval = 0.35f;
         private float _lastPickUpAt;
 
-        private float _itemDropInterval = 0.1f;
+        private float _itemDropInterval = 0.25f;
         private float _lastDropAt;
 
         public void Init(IEcsSystems systems)
@@ -50,7 +49,6 @@ namespace Game
             _transformPool = _world.GetPool<TransformComponenet>();
             _storagePool = _world.GetPool<StorageComponent>();
             _transactionPool = _world.GetPool<ItemTransactionComponent>();
-            _holderPool = _world.GetPool<ItemHolderComponent>();
         }
 
         public void Run(IEcsSystems systems)

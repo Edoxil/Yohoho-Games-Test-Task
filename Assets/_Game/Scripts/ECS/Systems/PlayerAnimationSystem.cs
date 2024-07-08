@@ -20,7 +20,7 @@ namespace Game
         private float _currentHandsLayerWeight;
         private float _actualHandsLayerWeight;
 
-        private float _weightChangeSpeed = 8f;
+        private float _weightChangeSpeed = 10f;
 
         public void Init(IEcsSystems systems)
         {

@@ -40,9 +40,9 @@ namespace Game
             ref DirectionComponenet direction = ref _directionPool.Get(playerID);
             ref CharacterControllerComponent characterController = ref _characterControllerPool.Get(playerID);
 
-            _motion = speed.value * Time.deltaTime * direction.value;
+            _motion = speed.value * Time.deltaTime * direction.value + (_gravity * Time.deltaTime);
 
-            characterController.value.Move(_motion + _gravity);
+            characterController.value.Move(_motion);
         }
     }
 }
