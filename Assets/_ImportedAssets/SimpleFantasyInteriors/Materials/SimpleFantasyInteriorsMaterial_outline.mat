@@ -7,15 +7,19 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Floor
-  m_Shader: {fileID: 4800000, guid: f8d49205b3b0a644195633020367689d, type: 3}
+  m_Name: SimpleFantasyInteriorsMaterial_outline
+  m_Shader: {fileID: 4800000, guid: 80412fe88398cd147be3aacebe2c3fe3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - TCP2_COLORS_AS_NORMALS
   - TCP2_DISABLE_WRAPPED_LIGHT
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  - TCP2_UV_NORMALS_FULL
+  - _EMISSION
+  m_InvalidKeywords:
+  - OUTLINES
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -42,11 +46,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 4, y: 4}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 94c69df2fb3069a489bd0934174116f7, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Texture: {fileID: 2800000, guid: 7bd66e4c877d4c6499a73a546a2a7cdf, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -70,16 +74,23 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _DstBlendOutline: 10
+    - _EmissionScaleUI: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NormalsSource: 1
+    - _NormalsUVType: 0
     - _OcclusionStrength: 1
+    - _Offset1: 0
+    - _Offset2: 0
+    - _Outline: 5
     - _Parallax: 0.02
-    - _RampSmooth: 0.2
+    - _RampSmooth: 0.448
     - _RampSmoothAdd: 0.75
-    - _RampThreshold: 0.5
+    - _RampThreshold: 0.481
     - _RimMax: 0.85
     - _RimMin: 0.6
     - _RimStrength: 0.5
@@ -88,16 +99,24 @@ Material:
     - _SpecSmooth: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _SrcBlendOutline: 5
     - _TCP2_DISABLE_WRAPPED_LIGHT: 1
+    - _TCP2_OUTLINE_CONST_SIZE: 0
+    - _TCP2_OUTLINE_TEXTURED: 0
     - _TCP2_RAMPTEXT: 0
     - _TCP2_SPEC_TOON: 0
     - _TCP2_STYLIZED_FRESNEL: 0
+    - _TCP2_ZSMOOTH_ON: 0
+    - _TexLod: 5
     - _UVSec: 0
+    - _ZSmooth: -0.5
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorUI: {r: 1, g: 1, b: 1, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.6}
-    - _SColor: {r: 0.24999997, g: 0.24999997, b: 0.24999997, a: 1}
+    - _SColor: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
   m_BuildTextureStacks: []
